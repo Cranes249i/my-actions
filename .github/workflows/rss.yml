@@ -1,0 +1,21 @@
+name: RSS 抓取
+
+on:
+  schedule:
+    - cron: '30 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-rss:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: 抓取最新文章写进 rss.md
+        uses: gautamkrishnar/blog-post-workflow@v1
+        with:
+          feed_list: "https://github.blog/changelog/feed/"
+          readme_path: "./rss.md"
